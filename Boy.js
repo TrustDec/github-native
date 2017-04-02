@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactNative from 'react-native';
 const {View,Text,StyleSheet} = ReactNative;
 import Girl from './Girl';
-import NavigationBar from './NavigationBar';
+import NavigationBar from './js/common/NavigationBar';
 export default class Boy extends Component {
   constructor(props){
     super(props);

@@ -3,7 +3,7 @@ import ReactNative from 'react-native';
 
 const {View,Text,Image,StyleSheet,TouchableOpacity} = ReactNative;
 
-import NavigationBar from './NavigationBar';
+import NavigationBar from './js/common/NavigationBar';
 
 export default class Girl extends Component {
   constructor(props){

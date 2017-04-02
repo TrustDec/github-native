@@ -4,7 +4,7 @@ import ReactNative from 'react-native';
 const {View,Text,Image,ListView,RefreshControl,StyleSheet,TouchableOpacity} = ReactNative;
 import Toast, {DURATION} from 'react-native-easy-toast';
 
-import NavigationBar from './NavigationBar';
+import NavigationBar from './js/common/NavigationBar';
 import data from './list.json';
 
 export default class ListViewTest extends Component {
