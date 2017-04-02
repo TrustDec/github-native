@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import Boy from './Boy';
+import ListViewTest from './ListViewTest';
 export default class GithubNative extends Component {
   constructor(props){
     super(props);
@@ -62,7 +63,7 @@ export default class GithubNative extends Component {
             renderSelectedIcon={() => <Image style={[styles.image,{tintColor: 'red'}]} source={require('./res/images/ic_trending.png')} />}
             onPress={() => this.setState({ selectedTab: 'tb_my' })}>
             <View style={styles.page2}></View>
-          </TabNavigator.Item></TabNavigator>*/}
+          </TabNavigator.Item></TabNavigator>
         <Navigator
           initialRoute={{
             component: Boy
@@ -71,7 +72,8 @@ export default class GithubNative extends Component {
             let Component = route.component;
             return <Component navigator={navigator} {...route.params}/>
           }}>
-        </Navigator>
+        </Navigator>*/}
+        <ListViewTest/>
       </View>
     );
   }
