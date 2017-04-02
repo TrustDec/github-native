@@ -13,18 +13,6 @@ export default class FetchTest extends Component {
     }
   }
   onLoad(url){
-    // fetch(url)
-    //   .then(response=>response.json())
-    //   .then(result=>{
-    //     this.setState({
-    //       result: JSON.stringify(result)
-    //     })
-    //   })
-    //   .catch(error=>{
-    //     this.setState({
-    //       result: JSON.stringify(result)
-    //     })
-    //   })
     HttpUtils.get(url)
       .then(result=>{
         this.setState({
@@ -38,25 +26,6 @@ export default class FetchTest extends Component {
       })
   }
   onSubmit(url,data){
-    /*fetch(url,{
-      method: 'POST',
-      header: {
-        'Accept':'application/json',
-        'Comtent-Type':'application/json'
-      },
-      body:JSON.stringify(data)
-    })
-      .then(response=>response.json())
-      .then(result=>{
-        this.setState({
-          result: JSON.stringify(result)
-        })
-      })
-      .catch(error=>{
-        this.setState({
-          result: JSON.stringify(result)
-        })
-      })*/
     HttpUtils.post(url,data)
       .then(result=>{
         this.setState({
