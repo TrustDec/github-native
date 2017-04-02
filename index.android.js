@@ -16,6 +16,7 @@ import {
 import TabNavigator from 'react-native-tab-navigator';
 import Boy from './Boy';
 import ListViewTest from './ListViewTest';
+import FetchTest from './FetchTest';
 export default class GithubNative extends Component {
   constructor(props){
     super(props);
@@ -72,8 +73,9 @@ export default class GithubNative extends Component {
             let Component = route.component;
             return <Component navigator={navigator} {...route.params}/>
           }}>
-        </Navigator>*/}
-        <ListViewTest/>
+        </Navigator>
+        <ListViewTest/>*/}
+        <FetchTest/>
       </View>
     );
   }
