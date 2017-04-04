@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactNative from 'react-native';
-const {View,Text,TextInput,ListView,StyleSheet,RefreshControl} = ReactNative;
+const {View,Text,ListView,StyleSheet,RefreshControl} = ReactNative;
 import NavigationBar from '../common/NavigationBar';
 import HomePage from './HomePage';
 import DataRepository from '../expand/dao/DataRepository';
