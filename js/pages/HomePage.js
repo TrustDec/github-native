@@ -16,11 +16,10 @@ export default class HomePage extends Component {
         <TabNavigator>
           <TabNavigator.Item
             selected={this.state.selectedTab === 'tb_polular'}
-            selectedTitleStyle={{color:'green'}}
+            selectedTitleStyle={{color:'#2196f3'}}
             title="最热"
             renderIcon={() => <Image style={styles.image} source={require('../../res/images/ic_polular.png')} />}
-            renderSelectedIcon={() => <Image style={[styles.image,{tintColor: 'green'}]} source={require('../../res/images/ic_polular.png')} />}
-            badgeText="1"
+            renderSelectedIcon={() => <Image style={[styles.image,{tintColor: '#2196f3'}]} source={require('../../res/images/ic_polular.png')} />}
             onPress={() => this.setState({ selectedTab: 'tb_polular' })}>
             <PopularPage/>
           </TabNavigator.Item>
