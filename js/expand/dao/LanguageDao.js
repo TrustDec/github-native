@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import ReactNative from 'react-native';
 const {AsyncStorage} = ReactNative;
 import keys from '../../../res/data/keys.json';
@@ -8,21 +7,21 @@ export default class LanguageDao {
 		this.flag=flag;
 	}
 	fetch(){
-		return new Promis((resolve,reject)=>{
+		return new Promise((resolve,reject)=>{
 			AsyncStorage.getItem(this.flag,(error,result)=>{
 				if (error) {
-					reject(error)
+					reject(error);
+					return;
+				}
+				if (!result) {
+					var data = this.flag === FLAG_LANGUAGE.flag_key?keys:null;
+					this.save(data);
+					resolve(data);
 				}else{
-					if (result) {
-						try {
-							resolve(JSON.parse(result))
-						}catch (e){
-							reject(e)
-						}
-					}else{
-						var data =this.flag ===FLAG_LANGUAGE.flag.key?keys:null;
-						this.save(data);
-						resolve(data);
+					try {
+						resolve(JSON.parse(result))
+					}catch (e){
+						reject(e)
 					}
 				}
 			});
