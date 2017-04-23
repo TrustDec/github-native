@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import ReactNative from 'react-native';
 import CheckBox from 'react-native-check-box'
-const {View,Text,Image,TouchableOpacity,ScrollView,StyleSheet} = ReactNative;
+const {Alert,View,Text,Image,TouchableOpacity,ScrollView,StyleSheet} = ReactNative;
 import NavigationBar from '../../common/NavigationBar';
 import ViewUtils from '../../util/ViewUtils';
+import ArrayUtils from '../../util/ArrayUtils';
 import LanguageDao,{FLAG_LANGUAGE} from '../../expand/dao/LanguageDao';
 export default class CustomKeyPage extends Component {
 	constructor(props){
 	    super(props);
 	    this.LanguageDao=new LanguageDao(FLAG_LANGUAGE.flag_key);
+	    this.chanageValues=[];
 	    this.state={
 	    	dataArray:[]
 	    }
@@ -28,12 +30,17 @@ export default class CustomKeyPage extends Component {
 			})
 	}
 	onSave(){
+		if (this.chanageValues.length===0) {
+			this.props.navigator.pop();
+			return;			
+		}
+		this.LanguageDao.save(this.state.dataArray);
 		this.props.navigator.pop();
 	}
 	renderView(){
 		if(!this.state.dataArray || this.state.dataArray.length === 0) return null;
 		let len = this.state.dataArray.length;
-		let views =[];1
+		let views =[];
 		for (let i = 0,l=len-2;i<l; i+=2) {
 			views.push(
 				<View key={i}>
@@ -49,7 +56,7 @@ export default class CustomKeyPage extends Component {
 				<View key={len-1}>
 					<View style={styles.item}>
 						{len%2===0?<Text>{this.renderCheckBox(this.state.dataArray[len-2])}</Text>:null}
-						<Text>{this.renderCheckBox(this.state.dataArray[len-1])}</Text>
+						{this.renderCheckBox(this.state.dataArray[len-1])}
 					</View>
 					<View style={styles.line}></View>
 				</View>
@@ -57,13 +64,39 @@ export default class CustomKeyPage extends Component {
 		return views;
 	}
 	onClick(data){
-
+		data.checked=!data.checked;
+		ArrayUtils.updateArray(this.chanageValues,data);
 	}
 	renderCheckBox(data){
 		let leftText =data.name;
-			return (
-				<Text>{leftText}</Text>
-			);
+		return(
+			<CheckBox
+				style={{flex:1,padding:10}}
+				onClick={()=>this.onClick(data)}
+				leftText={leftText}
+				isChecked={data.checked}
+				checkedImage={<Image style={{tintColor:'#6495ED'}}
+					source={require("./img/ic_check_box.png")}/>}
+				unCheckedImage={<Image style={{tintColor:'#6495ED'}}
+					source={require("./img/ic_check_box_outline_blank.png")}/>}
+			/>
+		);
+	}
+	onBack=()=>{
+		if (this.chanageValues.length===0) {
+			this.props.navigator.pop();
+			return
+		}
+		Alert.alert(
+			'提示',
+			'要保存修改吗?',
+			[
+				{text:'不保存',onPress:()=>{
+					this.props.navigator.pop();
+				},style:'cancel'},
+				{text:'保存',onPress:()=>{this.onSave()}}
+			]
+		);
 	}
 	render() {
 		let rightButton =<TouchableOpacity
@@ -77,7 +110,7 @@ export default class CustomKeyPage extends Component {
 			<NavigationBar
 				title={'自定义标签'}
 				style={{backgroundColor: '#6495ED'}}
-				leftButton={ViewUtils.getLeftButton(()=>this.onSave())}
+				leftButton={ViewUtils.getLeftButton(()=>this.onBack())}
 				rightButton={rightButton}
 			/>
 			<ScrollView>
@@ -102,8 +135,8 @@ const styles = StyleSheet.create({
 		fontSize: 20
 	},
 	line: {
-		height:1,
-		backgroundColor:"black"
+		height:StyleSheet.hairlineWidth,
+		backgroundColor:"darkgray"
 	},
 	item:{
 		flexDirection:'row',

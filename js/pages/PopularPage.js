@@ -5,26 +5,34 @@ import NavigationBar from '../common/NavigationBar';
 import HomePage from './HomePage';
 import DataRepository from '../expand/dao/DataRepository';
 import RepositoryCell from '../common/RepositoryCell';
+import LanguageDao,{FLAG_LANGUAGE} from '../expand/dao/LanguageDao';
 import ScrollableTabView,{ScrollableTabBar} from 'react-native-scrollable-tab-view';
 const URL = 'https://api.github.com/search/repositories?q=';
 const QUERY_STR = '&sort=stars';
 export default class PopularPage extends Component {
 	constructor(props){
 	    super(props);
-	    this.dataRepository=new DataRepository();
+	    this.languageDao=new LanguageDao(FLAG_LANGUAGE.flag_key);
 	    this.state={
-	    	result:''
+	    	languages:[]
 	    }
 	}
+	componentDidMount(){
+		this.loadData();
+	}
+	loadData(){
+		this.languageDao.fetch()
+			.then(result=>{
+				this.setState({
+					languages:result
+				});
+			})
+			.catch(error=>{
+				console.log(error);
+			})
+	}
 	render() {
-		return (
-			<View style={styles.container}>
-				<NavigationBar
-					title={'最热'}
-					statusBar={{
-						backgroundColor: '#2196f3'
-					}}
-				/>
+		let content = this.state.languages.length>0?
 				<ScrollableTabView
 					renderTabBar={()=><ScrollableTabBar/>}
 					tabBarBackgroundColor='#2196f3'
@@ -32,13 +40,20 @@ export default class PopularPage extends Component {
 					tabBarUnderlineStyle={{backgroundColor:'#e7e7e7',height:2}}
 					tabBarInactiveTextColor="mintcream"
 				>
-					<PopularTab tabLabel="Java">Java</PopularTab>
-					<PopularTab tabLabel="Android">Android</PopularTab>
-					<PopularTab tabLabel="Javascript">Javascript</PopularTab>
-					<PopularTab tabLabel="ReactNative">ReactNative</PopularTab>
-				</ScrollableTabView>
+					{this.state.languages.map((result,i,arr)=>{
+						let lan = arr[i];
+						return lan.checked?<PopularTab key={i} tabLabel={lan.name}/>:null;
+					})}
+				</ScrollableTabView>:null;
+		return <View style={styles.container}>
+				<NavigationBar
+					title={'最热'}
+					statusBar={{
+						backgroundColor: '#2196f3'
+					}}
+				/>
+				{content}
 			</View>
-		)
 	}
 }
 class PopularTab extends Component {

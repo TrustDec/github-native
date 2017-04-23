@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactNative from 'react-native';
-const {StyleSheet,Text,View,Image} = ReactNative;
+const {StyleSheet,Text,View,Image,AsyncStorage} = ReactNative;
 import TabNavigator from 'react-native-tab-navigator';
 import PopularPage from './PopularPage';
 import AsyncStorageTest from '../../AsyncStorageTest';
@@ -13,6 +13,7 @@ export default class HomePage extends Component {
     }
   }
   render() {
+    //AsyncStorage.clear(error=>{});
     return (
       <View style={styles.container}>
         <TabNavigator>
