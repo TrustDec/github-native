@@ -10,6 +10,7 @@ export default class CustomKeyPage extends Component {
 	constructor(props){
 	    super(props);
 	    this.LanguageDao=new LanguageDao(FLAG_LANGUAGE.flag_key);
+		this.isRemoveKey=this.props.isRemoveKey?true:false;
 	    this.chanageValues=[];
 	    this.state={
 	    	dataArray:[]
@@ -33,6 +34,9 @@ export default class CustomKeyPage extends Component {
 		if (this.chanageValues.length===0) {
 			this.props.navigator.pop();
 			return;			
+		}
+		for (let i = 0,l=this.chanageValues.length; i < l; i++) {
+			ArrayUtils.remove(this.state.dataArray,this.chanageValues[i]);
 		}
 		this.LanguageDao.save(this.state.dataArray);
 		this.props.navigator.pop();
@@ -64,17 +68,18 @@ export default class CustomKeyPage extends Component {
 		return views;
 	}
 	onClick(data){
-		data.checked=!data.checked;
+		if(!this.isRemoveKey) data.checked=!data.checked;
 		ArrayUtils.updateArray(this.chanageValues,data);
 	}
 	renderCheckBox(data){
 		let leftText =data.name;
+		let isChecked = this.isRemoveKey ? false : data.checked;
 		return(
 			<CheckBox
 				style={{flex:1,padding:10}}
 				onClick={()=>this.onClick(data)}
 				leftText={leftText}
-				isChecked={data.checked}
+				isChecked={isChecked}
 				checkedImage={<Image style={{tintColor:'#6495ED'}}
 					source={require("./img/ic_check_box.png")}/>}
 				unCheckedImage={<Image style={{tintColor:'#6495ED'}}
@@ -99,16 +104,18 @@ export default class CustomKeyPage extends Component {
 		);
 	}
 	render() {
+		let title = this.isRemoveKey?'标签删除':'自定义标签';
+		let rightButtonTitle = this.isRemoveKey?'移除':'保存';
 		let rightButton =<TouchableOpacity
 			onPress={()=>this.onSave()}
 		>
 			<View style={{margin:10}}>
-				<Text style={styles.title}>保存</Text>
+				<Text style={styles.title}>{rightButtonTitle}</Text>
 			</View>
 		</TouchableOpacity>
 		return <View style={styles.container}>
 			<NavigationBar
-				title={'自定义标签'}
+				title={title}
 				style={{backgroundColor: '#6495ED'}}
 				leftButton={ViewUtils.getLeftButton(()=>this.onBack())}
 				rightButton={rightButton}
