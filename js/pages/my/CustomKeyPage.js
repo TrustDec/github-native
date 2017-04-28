@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactNative from 'react-native';
-import CheckBox from 'react-native-check-box'
+import CheckBox from 'react-native-check-box';
 const {Alert,View,Text,Image,TouchableOpacity,ScrollView,StyleSheet} = ReactNative;
 import NavigationBar from '../../common/NavigationBar';
 import ViewUtils from '../../util/ViewUtils';
@@ -59,7 +59,7 @@ export default class CustomKeyPage extends Component {
 		views.push(
 				<View key={len-1}>
 					<View style={styles.item}>
-						{len%2===0?<Text>{this.renderCheckBox(this.state.dataArray[len-2])}</Text>:null}
+						{len%2===0?this.renderCheckBox(this.state.dataArray[len-2]):null}
 						{this.renderCheckBox(this.state.dataArray[len-1])}
 					</View>
 					<View style={styles.line}></View>
