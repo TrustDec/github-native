@@ -4,7 +4,7 @@ const {View,Text,ListView,StyleSheet,RefreshControl,DeviceEventEmitter} = ReactN
 import NavigationBar from '../common/NavigationBar';
 import HomePage from './HomePage';
 import RepositoryDetail from './RepositoryDetail';
-import DataRepository from '../expand/dao/DataRepository';
+import DataRepository,{FLAG_STORAGE} from '../expand/dao/DataRepository';
 import RepositoryCell from '../common/RepositoryCell';
 import LanguageDao,{FLAG_LANGUAGE} from '../expand/dao/LanguageDao';
 import ScrollableTabView,{ScrollableTabBar} from 'react-native-scrollable-tab-view';
@@ -60,7 +60,7 @@ export default class PopularPage extends Component {
 class PopularTab extends Component {
 	constructor(props){
 	    super(props);
-	    this.dataRepository=new DataRepository();
+	    this.dataRepository=new DataRepository(FLAG_STORAGE.flag_popular);
 	    this.state={
 	    	result:'',
 	    	dataSource: new ListView.DataSource({rowHasChanged: (r1, r2)=>r1 !== r2}),
@@ -113,7 +113,8 @@ class PopularTab extends Component {
 		this.props.navigator.push({
 			component:RepositoryDetail,
 			params:{
-				item:item,
+				url:item.html_url,
+				title:item.full_name,
 				...this.props
 			}
 		});
