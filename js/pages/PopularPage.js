@@ -3,7 +3,7 @@ import ReactNative from 'react-native';
 const {View,Text,ListView,StyleSheet,RefreshControl,DeviceEventEmitter} = ReactNative;
 import NavigationBar from '../common/NavigationBar';
 import HomePage from './HomePage';
-import RepositoryDetail from './RepositoryDetail';
+//import RepositoryDetail from './RepositoryDetail';
 import DataRepository,{FLAG_STORAGE} from '../expand/dao/DataRepository';
 import RepositoryCell from '../common/RepositoryCell';
 import LanguageDao,{FLAG_LANGUAGE} from '../expand/dao/LanguageDao';
@@ -110,14 +110,14 @@ class PopularTab extends Component {
 		return URL+key+QUERY_STR;
 	}
 	onSelect(item){
-		this.props.navigator.push({
+		/*this.props.navigator.push({
 			component:RepositoryDetail,
 			params:{
 				url:item.html_url,
 				title:item.full_name,
 				...this.props
 			}
-		});
+		});*/
 	}
 	renderRow(data){
 		return <RepositoryCell data={data} onSelect={()=>this.onSelect(data)} {...this.props}/>

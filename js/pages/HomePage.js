@@ -4,10 +4,10 @@ const {StyleSheet,Text,View,Image,AsyncStorage,DeviceEventEmitter} = ReactNative
 import TabNavigator from 'react-native-tab-navigator';
 import PopularPage from './PopularPage';
 import AsyncStorageTest from '../../AsyncStorageTest';
-import TrendingPage from './TrendingPage';
+//import TrendingPage from './TrendingPage';
 import Toast,{DURATION} from 'react-native-easy-toast';
 import MyPage from './my/MyPage';
-import WebViewTest from  '../../WebViewTest';
+//import WebViewTest from  '../../WebViewTest';
 export default class HomePage extends Component {
   constructor(props){
     super(props);
@@ -40,8 +40,8 @@ export default class HomePage extends Component {
       <View style={styles.container}>
         <TabNavigator>         
           {this._renderTab(PopularPage,'tb_polular',"最热",require('../../res/images/ic_polular.png'))}
-          {this._renderTab(TrendingPage,'tb_trending',"趋势",require('../../res/images/ic_trending.png'))}
-          {this._renderTab(WebViewTest,'tb_favorite',"收藏",require('../../res/images/ic_favorite.png'))}
+          {this._renderTab(PopularPage,'tb_trending',"趋势",require('../../res/images/ic_trending.png'))}
+          {this._renderTab(MyPage,'tb_favorite',"收藏",require('../../res/images/ic_favorite.png'))}
           {this._renderTab(MyPage,'tb_my',"我的",require('../../res/images/ic_my.png'))}
         </TabNavigator>
         <Toast ref={toast=>this.toast=toast}/> 
